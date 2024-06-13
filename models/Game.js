@@ -66,7 +66,7 @@ const GameSchema = new Schema({
    genres: DescriptionSchema,
    releaseYear: Number,
    rating: Number,
-   prices: DescriptionSchema,
+   prices: PriceSchema,
    trailer: String,
    developer: String,
    publisher: String,

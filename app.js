@@ -21,7 +21,7 @@ app.use(
 
 const GetGamesRoutes = require('./routes/GetGamesRoutes');
 
-app.use(GetGamesRoutes);
+app.use('/api', GetGamesRoutes);
 
 const port = process.env.PORT || 3002;
 
