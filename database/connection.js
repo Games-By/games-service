@@ -11,7 +11,6 @@ const getDatabaseURL = async () => {
    }
 };
 
-let dbConnect = '';
 const initializeEnvironment = async () => {
    const environment = await getDatabaseURL();
    if (!environment) {
@@ -23,24 +22,22 @@ const initializeEnvironment = async () => {
    }
 
    console.log('environment:', process.env.NODE_ENV);
-   dbConnect = environment;
+   return environment;
 };
-initializeEnvironment().then(() => {
-   const connect = () => {
-      try {
-         mongoose.connect(`${dbConnect}`);
-         const connection = mongoose.connection;
-         connection.on('error', (err) => {
-            console.error('Error connecting to database', err);
-         });
-         connection.on('open', () => {
-            console.log('MongoDB connected!');
-         });
-      } catch (error) {
-         console.error('An error occurred while connecting to the database:', error);
-      }
-   };
-   connect();
+
+initializeEnvironment().then((dbConnect) => {
+   try {
+      mongoose.connect(dbConnect);
+      const connection = mongoose.connection;
+      connection.on('error', (err) => {
+         console.error('Error connecting to database', err);
+      });
+      connection.on('open', () => {
+         console.log('MongoDB connected!');
+      });
+   } catch (error) {
+      console.error('An error occurred while connecting to the database:', error);
+   }
 });
 
 module.exports = mongoose;
