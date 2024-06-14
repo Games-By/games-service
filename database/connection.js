@@ -1,46 +1,42 @@
-const mongoose = require('mongoose');
+const express = require('express');
+const cors = require('cors');
 require('dotenv').config();
 
-const getDatabaseURL = async () => {
-   if (process.env.NODE_ENV === 'production') {
-      return process.env.PROD_DB_URL;
-   } else if (process.env.NODE_ENV === 'staging') {
-      return process.env.STAGING_DB_URL;
-   } else if (process.env.NODE_ENV === 'development') {
-      return process.env.DEV_DB_URL;
-   }
-};
+const app = express();
+app.use(express.json());
 
-let dbConnect = '';
-const initializeEnvironment = async () => {
-   const environment = await getDatabaseURL();
-   if (!environment) {
-      console.error(
-         'Database credentials are missing. Please check your .env file.',
-         environment
-      );
-      process.exit(1);
-   }
+console.log('Express server configured successfully');
 
-   console.log('environment:', process.env.NODE_ENV);
-   dbConnect = environment;
-};
-initializeEnvironment().then(() => {
-   const connect = () => {
-      try {
-         mongoose.connect(`${dbConnect}`);
-         const connection = mongoose.connection;
-         connection.on('error', (err) => {
-            console.error('Error connecting to database', err);
-         });
-         connection.on('open', () => {
-            console.log('MongoDB connected!');
-         });
-      } catch (error) {
-         console.error('An error occurred while connecting to the database:', error);
-      }
-   };
-   connect();
+app.use(
+   cors({
+      origin: function (origin, callback) {
+         console.log('Origin:', origin);
+         if (origin === 'http://localhost:3000' || '*') {
+            console.log('Allowed by CORS');
+            callback(null, true);
+         } else {
+            console.log('Not allowed by CORS');
+            callback(new Error('Not allowed by CORS'));
+         }
+      },
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+   })
+);
+
+console.log('CORS configured successfully');
+
+const GetGamesRoutes = require('./routes/GetGamesRoutes');
+app.use('/api', GetGamesRoutes);
+
+console.log('API routes included successfully');
+
+const port = process.env.PORT || 3002;
+
+console.log(`Server will listen on port ${port}`);
+
+app.listen(port, () => {
+   console.log(`Server running on the port ${port}`);
 });
 
-module.exports = mongoose;
+require('./database/connection');
