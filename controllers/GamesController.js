@@ -25,6 +25,20 @@ module.exports = class GamesController {
          res.status(500).json({ error: error.message });
       }
    }
+   static async getGameById(req, res) {
+      const { id } = req.params;
+      console.log('1', id)
+      try {
+         const game = await Game.findById(id);
+         console.log('2',game)
+         if (!game) {
+            return res.status(404).json({ message: 'Game not found' });
+         }
+         res.status(200).json(game);
+      } catch (error) {
+         res.status(500).json({ error: error.message });
+      }
+   }
    static async updateGameImages(req, res) {
       const { name } = req.params;
       const { coverImage, wallpapers, secondaryCovers } = req.body;
