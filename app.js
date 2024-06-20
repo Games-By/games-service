@@ -21,9 +21,11 @@ app.use(
 
 const GetGamesRoutes = require('./routes/GetGamesRoutes');
 const GameImagesRoutes = require('./routes/GameImagesRoutes');
+const BannerRoutes = require('./routes/BannerRoutes');
 
 app.use('/api', GetGamesRoutes);
 app.use('/api', GameImagesRoutes);
+app.use('/api', BannerRoutes);
 
 const port = process.env.PORT || 3002;
 
