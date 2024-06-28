@@ -29,7 +29,6 @@ class BannerController {
       try {
          let newBanner;
          const { type } = req.body;
-         console.log('type', type);
          switch (type) {
             case 'launch':
                newBanner = new LaunchBanner(req.body);

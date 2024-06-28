@@ -27,10 +27,8 @@ module.exports = class GamesController {
    }
    static async getGameById(req, res) {
       const { id } = req.params;
-      console.log('1', id)
       try {
          const game = await Game.findById(id);
-         console.log('2',game)
          if (!game) {
             return res.status(404).json({ message: 'Game not found' });
          }

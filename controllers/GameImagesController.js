@@ -12,8 +12,6 @@ module.exports = class GameImagesController {
             return res.status(404).json({ message: 'Game not found' });
          }
 
-         console.log(game.images);
-
          if (coverImage) {
             game.images.coverImage = coverImage;
          }
@@ -23,7 +21,6 @@ module.exports = class GameImagesController {
          if (secondaryCovers) {
             game.images.secondaryCovers = secondaryCovers;
          }
-         console.log(game.images);
 
          await game.save();
 
