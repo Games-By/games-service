@@ -16,6 +16,7 @@ const discountSchema = new Schema(
       description: { type: String, required: true },
       validUntil: { type: Date, required: true },
       discount: { type: Number, required: true, min: 0, max: 100 },
+      rating: { type: Number, required: true, min: 0, max: 100 },
    },
    { collection: 'banners' }
 );
