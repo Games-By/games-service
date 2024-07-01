@@ -20,8 +20,8 @@ const DescriptionSchema = new Schema(
 const discountSchema = new Schema(
    {
       type: String,
-      title: DescriptionSchema,
-      description: DescriptionSchema,
+      title: [DescriptionSchema],
+      description: [DescriptionSchema],
       imageUrl: { type: String, required: true },
       linkUrl: { type: String, required: true },
       startDate: { type: Date, required: true },
@@ -30,6 +30,7 @@ const discountSchema = new Schema(
       originalPrice: { type: Number, required: true },
       discountedPrice: { type: Number, required: true },
       validUntil: { type: Date, required: true },
+      genre: [DescriptionSchema],
       discount: { type: Number, required: true, min: 0, max: 100 },
       rating: { type: Number, required: true, min: 0, max: 100 },
    },

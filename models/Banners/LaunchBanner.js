@@ -20,8 +20,8 @@ const DescriptionSchema = new Schema(
 const launchSchema = new Schema(
    {
       type: String,
-      title: DescriptionSchema,
-      description: DescriptionSchema,
+      title: [DescriptionSchema],
+      description: [DescriptionSchema],
       imageUrl: { type: String, required: true },
       linkUrl: { type: String, required: true },
       startDate: { type: Date, required: true },
@@ -31,7 +31,7 @@ const launchSchema = new Schema(
       trailerUrl: { type: String, required: true },
       developer: { type: String, required: true },
       publisher: { type: String, required: true },
-      genre: { type: String, required: true },
+      genre: [DescriptionSchema],
       price: { type: Number, required: true },
    },
    { collection: 'banners' }
