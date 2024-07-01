@@ -20,8 +20,8 @@ const DescriptionSchema = new Schema(
 const discountSchema = new Schema(
    {
       type: String,
-      title: [DescriptionSchema],
-      description: [DescriptionSchema],
+      title: DescriptionSchema,
+      description: DescriptionSchema,
       imageUrl: { type: String, required: true },
       linkUrl: { type: String, required: true },
       startDate: { type: Date, required: true },

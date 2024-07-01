@@ -19,8 +19,8 @@ const DescriptionSchema = new Schema(
 
 const BannerSchema = new Schema(
    {
-      title: [DescriptionSchema],
-      description: [DescriptionSchema],
+      title: DescriptionSchema,
+      description: DescriptionSchema,
       imageUrl: { type: String, required: true },
       linkUrl: { type: String, required: true },
       startDate: { type: Date, required: true },
