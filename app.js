@@ -19,11 +19,11 @@ app.use(
    })
 );
 
-const GetGamesRoutes = require('./routes/GetGamesRoutes');
+const GamesRoutes = require('./routes/GamesRoutes');
 const GameImagesRoutes = require('./routes/GameImagesRoutes');
 const BannerRoutes = require('./routes/BannerRoutes');
 
-app.use('/api', GetGamesRoutes);
+app.use('/api', GamesRoutes);
 app.use('/api', GameImagesRoutes);
 app.use('/api', BannerRoutes);
 

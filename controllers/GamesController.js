@@ -37,4 +37,24 @@ module.exports = class GamesController {
          res.status(500).json({ error: error.message });
       }
    }
+   static async addGame(req, res) {
+      const { game } = req.body;
+
+      if (!game) {
+         return res.status(400).json({ error: 'No game data provided' });
+      }
+
+      try {
+         const newGame = new Game(game);
+         await newGame.save();
+         return res.status(201).json(newGame);
+      } catch (error) {
+         return res
+            .status(500)
+            .json({
+               error: 'Error when saving the game',
+               details: error.message,
+            });
+      }
+   }
 };
