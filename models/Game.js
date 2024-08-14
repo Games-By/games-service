@@ -3,16 +3,9 @@ const Schema = mongoose.Schema;
 
 const DescriptionSchema = new Schema(
    {
-      en: String,
-      pt: String,
-      zh: String,
-      es: String,
-      hi: String,
-      fr: String,
-      ar: String,
-      bn: String,
-      ru: String,
-      id: String,
+      'en-US': String,
+      'pt-BR': String,
+      'es-ES': String,
    },
    { _id: false }
 );
@@ -54,10 +47,80 @@ const GameModeSchema = new Schema(
 const DlcSchema = new Schema({
    name: String,
    releaseDate: Date,
-   description: {
-      en: String,
-   },
+   description: DescriptionSchema,
 });
+
+const AwardSchema = new Schema({
+   name: String,
+   category: String,
+   winner: Boolean,
+});
+
+const SocialMediaSchema = new Schema(
+   {
+      twitter: String,
+      facebook: String,
+      instagram: String,
+   },
+   { _id: false }
+);
+
+const CommunitySchema = new Schema(
+   {
+      website: String,
+      forums: String,
+      socialMedia: SocialMediaSchema,
+   },
+   { _id: false }
+);
+
+const SystemRequirementsSchema = new Schema(
+   {
+      os: String,
+      processor: String,
+      memory: String,
+      graphics: String,
+      storage: String,
+   },
+   { _id: false }
+);
+
+const PlayTimeSchema = new Schema(
+   {
+      mainStory: Number,
+      fullCompletion: Number,
+   },
+   { _id: false }
+);
+
+const AgeRatingSchema = new Schema(
+   {
+      ratingSystem: String,
+      rating: String,
+   },
+   { _id: false }
+);
+
+const UpdateSchema = new Schema({
+   version: String,
+   releaseDate: Date,
+   notes: String,
+});
+
+const UserReviewSchema = new Schema({
+   username: String,
+   rating: Number,
+   comment: String,
+   date: Date,
+});
+
+const MultiplayerSupportSchema = new Schema(
+   {
+      crossPlay: Boolean,
+      maxPlayers: Number,
+   },
+   { _id: false }
+);
 
 const GameSchema = new Schema({
    name: String,
@@ -65,30 +128,33 @@ const GameSchema = new Schema({
    images: ImageSchema,
    genres: DescriptionSchema,
    releaseYear: Number,
+   releaseDate: Date,
    rating: Number,
-   prices: PriceSchema,
+   metacriticScore: Number,
+   platforms: [String],
+   ageRating: AgeRatingSchema,
+   supportedLanguages: [String],
+   playTime: PlayTimeSchema,
+   systemRequirements: {
+      minimum: SystemRequirementsSchema,
+      recommended: SystemRequirementsSchema,
+   },
+   prices: {
+      'en-US': PriceSchema,
+      'pt-BR': PriceSchema,
+      'es-ES': PriceSchema,
+   },
    discount: Number,
    trailer: String,
    developer: String,
    publisher: String,
    gameModes: [GameModeSchema],
    dlcs: [DlcSchema],
-   awards: [
-      {
-         name: String,
-         category: String,
-         winner: Boolean,
-      },
-   ],
-   community: {
-      website: String,
-      forums: String,
-      socialMedia: {
-         twitter: String,
-         facebook: String,
-         instagram: String,
-      },
-   },
+   awards: [AwardSchema],
+   community: CommunitySchema,
+   updates: [UpdateSchema],
+   userReviews: [UserReviewSchema],
+   multiplayerSupport: MultiplayerSupportSchema,
 });
 
 const Game = mongoose.model('Game', GameSchema, 'games');
