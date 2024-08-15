@@ -155,8 +155,8 @@ const GameSchema = new Schema({
    updates: [UpdateSchema],
    userReviews: [UserReviewSchema],
    multiplayerSupport: MultiplayerSupportSchema,
-   pegiRating: Number,
-   esrbRating: Number,
+   pegiRating: String,
+   esrbRating: String,
 });
 
 const Game = mongoose.model('Game', GameSchema, 'games');
