@@ -108,6 +108,7 @@ const UpdateSchema = new Schema({
 });
 
 const UserReviewSchema = new Schema({
+   profileImage: String,
    username: String,
    rating: Number,
    comment: String,
