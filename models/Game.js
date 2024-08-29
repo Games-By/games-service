@@ -10,6 +10,15 @@ const DescriptionSchema = new Schema(
    { _id: false }
 );
 
+const GenresSchema = new Schema(
+   {
+      'en-US': [String],
+      'pt-BR': [String],
+      'es-ES': [String],
+   },
+   { _id: false }
+);
+
 const ImageSchema = new Schema(
    {
       coverImage: String,
@@ -127,7 +136,7 @@ const GameSchema = new Schema({
    name: String,
    description: DescriptionSchema,
    images: ImageSchema,
-   genres: DescriptionSchema,
+   genres: GenresSchema,
    releaseYear: Number,
    releaseDate: Date,
    rating: Number,
