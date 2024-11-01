@@ -49,12 +49,18 @@ module.exports = class GamesController {
          await newGame.save();
          return res.status(201).json(newGame);
       } catch (error) {
-         return res
-            .status(500)
-            .json({
-               error: 'Error when saving the game',
-               details: error.message,
-            });
+         return res.status(500).json({
+            error: 'Error when saving the game',
+            details: error.message,
+         });
+      }
+   }
+   static async getReleaseGames(req, res) {
+      try {
+         const games = await Game.find({ releaseYear: { $gte: 2022 } });
+         res.status(200).json(games);
+      } catch (error) {
+         res.status(500).json({ error: error.message });
       }
    }
 };
